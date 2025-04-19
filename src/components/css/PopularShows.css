@@ -1,0 +1,77 @@
+.popular-shows {
+    background-color: #011133;
+    margin: 100px 0;
+    min-height: 40vh;
+    padding: 40px 0;
+}
+
+.section-title {
+    color: #5CE8C9;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 60px;
+  }
+
+.popular-shows .container{
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.popular-show-item {
+    height: 400px; /* You can tweak this */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+  }
+
+.popular-shows .tv-link{
+    text-decoration: none !important;
+}
+
+.show-item-background {
+    background: linear-gradient(#9BA2F8, #5DE5CA);
+    border-radius: 10%;
+    padding: 20px 15px 15px;
+    position: relative;
+    transition: transform 0.3s ease;
+    overflow: visible;
+}
+
+.show-item-background img {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: -60px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.show-item-background:hover {
+    transform: translateY(-5px);
+}
+
+.popular-shows .col-lg-3 {
+    padding: 15px;
+    display: flex;
+    padding: 20px;
+}
+
+.block-description p {
+    text-decoration: none;
+    text-align: left;
+    color: #fff;
+    margin: 0;
+}
+
+.block-description p:first-child {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.block-description p:nth-child(2) {
+    font-size: 14px;
+    color: #e0e0e0;
+}
+

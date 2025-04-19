@@ -1,0 +1,19 @@
+footer {
+    background: linear-gradient(#9BA2F8, #5DE5CA);
+    height: 20vh;
+    display: flex;
+    align-items: flex-end; /* pushes content to the bottom */
+}
+
+footer .container {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 20px; /* space from bottom */
+    color: #011133;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+footer .container p{
+    color: #ffffff;
+}

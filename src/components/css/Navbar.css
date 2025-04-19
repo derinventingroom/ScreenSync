@@ -1,0 +1,31 @@
+.navbar{
+    background-color:#011133 !important;
+    padding-top: 25px;
+}
+
+.navbar input{
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.navbar .btn{
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.navbar-nav{
+    padding-left: 100px;
+    font-weight: 800;
+    font-size: 24px;
+    gap: 24px;
+    margin-bottom: 1.2rem;
+}
+
+.navbar-brand{
+    padding-right: 100px;
+    margin-bottom: 1.2rem;
+}
+
+.search-bar{
+    margin-bottom: 1.2rem;
+}
