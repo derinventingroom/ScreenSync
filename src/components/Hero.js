@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./css/Hero.css";
@@ -38,7 +39,7 @@ const Hero = () => {
         
           <h1>{movie.title}</h1>
           <p>{movie.overview.length > 200 ? movie.overview.substring(0, 200) + "..." : movie.overview}</p>
-          <button className="btn">Overview</button>
+          <Link to={`/movies/${movie.id}`} className="btn">Overview</Link>
         </div>
       </div>
     </div>

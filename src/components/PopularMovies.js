@@ -37,7 +37,7 @@ const PopularMovies = () => {
          <div className="d-flex justify-content-around flex-wrap">
          {movies.map((movie) => (
           <div className="col-lg-3" key={movie.id}>
-            <Link to={`/movie/${movie.id}`} className="movie-link">
+            <Link to={`/movies/${movie.id}`} className="movie-link">
             <div className="popular-movie-item">
               <div className="movie-item-background">
                 <img

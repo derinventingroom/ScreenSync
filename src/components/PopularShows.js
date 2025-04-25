@@ -34,7 +34,7 @@ return(
         <div className="d-flex justify-content-around flex-wrap">
             {shows.map((show) => (
                 <div className="col-lg-3" key={show.id}>
-                <Link to={`/tv/${show.id}`} className="tv-link">
+                <Link to={`/shows/${show.id}`} className="tv-link">
                 <div className="popular-show-item">
                   <div className="show-item-background">
                     <img

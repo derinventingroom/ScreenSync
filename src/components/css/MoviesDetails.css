@@ -1,0 +1,22 @@
+/* Example custom styling */
+.movie-card {
+    margin-top: 20px;
+  }
+  
+  .movie-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .cast img {
+    border-radius: 50%;
+  }
+  
+  .cast {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  

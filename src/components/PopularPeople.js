@@ -34,7 +34,7 @@ const PopularPeople = () => {
                 <div className="d-flex justify-content-around flex-wrap">
                     {people.map((person) => (
                         <div className="col-lg-3" key={person.id}>
-                            <Link to={`/person/${person.id}`} className="tv-link">
+                            <Link to={`/people/${person.id}`} className="tv-link">
                                 <div className="popular-person-item">
                                     <div className="person-item-background">
                                         <img
