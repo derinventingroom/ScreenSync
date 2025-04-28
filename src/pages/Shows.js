@@ -74,8 +74,13 @@ const Shows = () => {
                 alt={show.name}
                 className="img-fluid rounded mb-2"
               />
-              <h5 className="show-title">{show.name}</h5>
-              <p className="show-air-date">First Air Date: {show.first_air_date}</p>
+              <div className="show-info">
+                <div className="info-flex">
+                  <i class="fa-solid fa-tv"></i>
+                  <h5 className="show-title">{show.name}</h5>
+                </div>
+                 <p className="show-air-date">First Air Date: {show.first_air_date}</p>
+              </div>
             </div>
           </div>
         ))}

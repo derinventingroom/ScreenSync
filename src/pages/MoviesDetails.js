@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "../components/css/MoviesDetails.css";
 
 const MovieDetails = () => {
   const { id } = useParams(); // get movie ID from the URL
@@ -44,7 +45,7 @@ const MovieDetails = () => {
   if (!movie) return <div className="p-4">Loading...</div>;
 
   return (
-    <div className="container py-4">
+    <div className="movie-detail container py-4">
       <div>
         <h2>{movie.title}</h2>
         <img
@@ -53,10 +54,20 @@ const MovieDetails = () => {
           className="img-fluid mb-3"
         />
       </div>
-      <div>
+      <div className="movie-data">
       <p><strong>Release Date:</strong> {movie.release_date}</p>
       <p><strong>Overview:</strong> {movie.overview}</p>
       <p><strong>Rating:</strong> {movie.vote_average} / 10</p>
+
+      
+      {/* Trailer Section */}
+      {trailer && (
+        <div className="mt-4">
+          <a href={trailer} target="_blank" rel="noopener noreferrer">
+            <button className="btn">Watch Trailer</button>
+          </a>
+        </div>
+      )}
 
       {/* Cast Section */}
       <div className="mt-4">
@@ -67,24 +78,13 @@ const MovieDetails = () => {
               <img
                 src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
                 alt={actor.name}
-                className="img-fluid rounded-circle"
-                style={{ width: "100px", height: "100px" }}
+                className="img-fluid"
               />
               <p>{actor.name}</p>
             </div>
           ))}
         </div>
       </div>
-
-      {/* Trailer Section */}
-      {trailer && (
-        <div className="mt-4">
-          <h4>Trailer</h4>
-          <a href={trailer} target="_blank" rel="noopener noreferrer">
-            <button className="btn btn-danger">Watch Trailer</button>
-          </a>
-        </div>
-      )}
       </div>
     </div>
   );

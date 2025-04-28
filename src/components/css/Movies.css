@@ -1,8 +1,4 @@
-.movies-page .btn{
-    /* background-color:#9BA2F8; */
-}
 .movie-card{
-    /* background: linear-gradient(0turn, #5DE5CA, #f8f9fa, #f8f9fa); */
     color:#212529 !important;
     background: #f8f9fa !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);

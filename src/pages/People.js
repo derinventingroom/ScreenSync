@@ -46,12 +46,17 @@ const People = () => {
                 alt={person.name}
                 className="img-fluid rounded mb-2"
               />
-              <h5 className="person-name">{person.name}</h5>
-              {person.known_for_department && (
-                <p className="person-department">
-                  {person.known_for_department}
-                </p>
-              )}
+     
+              <div className="person-info">
+                <div className="info-flex">
+                  <h5 className="person-name">{person.name}</h5>
+                </div>
+                {person.known_for_department && (
+                  <p className="person-department">
+                    {person.known_for_department}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         ))}

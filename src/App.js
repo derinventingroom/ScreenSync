@@ -11,20 +11,24 @@ import PeopleDetails from "./pages/PeopleDetails";
 
 function App() {
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/movies/:id" element={<MovieDetails />} />
-          <Route path="/shows" element={<Shows />} />
-          <Route path="/shows/:id" element={<ShowDetails />} />
-          <Route path="/people" element={<People />} />
-          <Route path="/people/:id" element={<PeopleDetails />} />
-        </Routes>
-      </Layout>
-    </Router>
+    <div className="page-container">
+      <div className="content-wrap">
+        <Router>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/search" element={<SearchPage />} />
+              <Route path="/movies" element={<Movies />} />
+              <Route path="/movies/:id" element={<MovieDetails />} />
+              <Route path="/shows" element={<Shows />} />
+              <Route path="/shows/:id" element={<ShowDetails />} />
+              <Route path="/people" element={<People />} />
+              <Route path="/people/:id" element={<PeopleDetails />} />
+            </Routes>
+          </Layout>
+        </Router>
+      </div>
+    </div>
   ); 
 }
 

@@ -1,0 +1,25 @@
+.show-card{
+    color:#212529 !important;
+    background: #f8f9fa !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 0 !important;
+}
+.show-card img{
+    border-bottom: 5px solid #5DE5CA;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+.show-info{
+    padding: 8px;
+}
+
+.info-flex{
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+}
+
+.show-card h5{
+    font-size: 18px;
+    font-weight: 700;
+}
