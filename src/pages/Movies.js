@@ -79,8 +79,13 @@ const Movies = () => {
                 alt={movie.title}
                 className="img-fluid rounded mb-2"
               />
-              <h5 className="movie-title">{movie.title}</h5>
-              <p className="movie-release">Release: {movie.release_date}</p>
+              <div className="movie-info">
+                <div className="info-flex">
+                  <i className="fa-solid fa-film"></i>
+                  <h5 className="movie-title">{movie.title}</h5>
+                </div>
+                <p className="movie-release">{movie.release_date}</p>
+              </div>
             </div>
             </Link>
           </div>
