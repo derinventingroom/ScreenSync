@@ -8,6 +8,8 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]); // Store the cast here
   const [trailer, setTrailer] = useState(""); // Store the trailer URL here
+  const [reviews, setReviews] = useState([]);
+  const [expandedReviews, setExpandedReviews] = useState({});
   const apiKey = "7ff29f44e328a4c9a0fd467d2c5afffa";
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const MovieDetails = () => {
         const castResponse = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}&language=en-US`
         );
-        setCast(castResponse.data.cast.slice(0, 3)); // Get the first 3 cast members
+        setCast(castResponse.data.cast.slice(0, 8)); // Get the first 3 cast members
 
         // Fetch the trailer
         const trailerResponse = await axios.get(
@@ -34,6 +36,12 @@ const MovieDetails = () => {
         if (trailerData) {
           setTrailer(`https://www.youtube.com/watch?v=${trailerData.key}`);
         }
+
+        const reviewsResponse = await axios.get(
+          `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${apiKey}&language=en-US&page=1`
+        );
+        setReviews(reviewsResponse.data.results.slice(0, 3));
+
       } catch (error) {
         console.error("Error fetching movie details:", error);
       }
@@ -85,7 +93,40 @@ const MovieDetails = () => {
           ))}
         </div>
       </div>
-      </div>
+     </div>
+           {/* Reviews Section */}
+           <div className="mt-4">
+          <h4>Reviews</h4>
+          {reviews.length > 0 ? (
+            reviews.map((review) => (
+              review.content && (
+                <div key={review.id} className="review mb-3">
+                  <p><strong>{review.author}</strong> says:</p>
+                  <p>
+                    {expandedReviews[review.id]
+                      ? review.content
+                      : `${review.content.substring(0, 300)}...`}
+                  </p>
+                  {review.content.length > 300 && (
+                    <button
+                      className="btn btn-sm btn-outline-secondary"
+                      onClick={() =>
+                        setExpandedReviews((prev) => ({
+                          ...prev,
+                          [review.id]: !prev[review.id],
+                        }))
+                      }
+                    >
+                      {expandedReviews[review.id] ? "Show Less" : "Read More"}
+                    </button>
+                  )}
+                </div>
+              )
+            ))
+          ) : (
+            <p>No reviews available.</p>
+          )}
+        </div>
     </div>
   );
 };
