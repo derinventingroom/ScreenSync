@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -53,55 +54,67 @@ const MovieDetails = () => {
   if (!movie) return <div className="p-4">Loading...</div>;
 
   return (
-    <div className="movie-detail container py-4">
-      <div>
-        <h2>{movie.title}</h2>
+    <div className="movie-detail container">
+      <div 
+         className="movie-top"
+         style={{
+          backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+        }}
+         >
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
-          className="img-fluid mb-3"
+          className="movie-poster img-fluid mb-3"
         />
-      </div>
-      <div className="movie-data">
-      <p><strong>Release Date:</strong> {movie.release_date}</p>
-      <p><strong>Overview:</strong> {movie.overview}</p>
-      <p><strong>Rating:</strong> {movie.vote_average} / 10</p>
-
-      
-      {/* Trailer Section */}
-      {trailer && (
-        <div className="mt-4">
-          <a href={trailer} target="_blank" rel="noopener noreferrer">
+        <div className="movie-data">
+          <h2>{movie.title}</h2>
+          <p><strong>Release Date:</strong> {movie.release_date}</p>
+          <p><strong>Overview:</strong> {movie.overview}</p>
+          <p><strong>Rating:</strong> {movie.vote_average} / 10</p>
+          {/* Trailer Section */}
+          {trailer && (
+          <div className="mt-4">
+            <a href={trailer} target="_blank" rel="noopener noreferrer">
             <button className="btn">Watch Trailer</button>
-          </a>
+            </a>
+          </div>
+          )}
+          </div>
         </div>
-      )}
 
+      {/* Reviews Section */}
+     <div className="reviews-section">
       {/* Cast Section */}
-      <div className="mt-4">
-        <h4>Cast</h4>
-        <div className="d-flex">
+       <div className="cast-list">
+        <h2>Cast</h2>
+        <div className="d-flex gap-3">
           {cast.map((actor) => (
-            <div key={actor.id} className="me-3">
+            <Link
+              to={`/people/${actor.id}`}
+              key={actor.id}
+              className="cast-link"
+            >
+            <div className="cast-card">
               <img
                 src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
                 alt={actor.name}
                 className="img-fluid"
               />
               <p>{actor.name}</p>
-            </div>
+              <p className="text-muted">{actor.character}</p>
+             </div>
+            </Link>
           ))}
         </div>
       </div>
-     </div>
-           {/* Reviews Section */}
-           <div className="mt-4">
-          <h4>Reviews</h4>
-          {reviews.length > 0 ? (
+      <hr></hr>
+      <h2>Reviews</h2>
+      {/* <div className="reviews-between mt-4"></div> */}
+      {reviews.length > 0 ? (
             reviews.map((review) => (
               review.content && (
                 <div key={review.id} className="review mb-3">
-                  <p><strong>{review.author}</strong> says:</p>
+                  <p><strong>{review.author}</strong></p>
                   <p>
                     {expandedReviews[review.id]
                       ? review.content
@@ -109,7 +122,7 @@ const MovieDetails = () => {
                   </p>
                   {review.content.length > 300 && (
                     <button
-                      className="btn btn-sm btn-outline-secondary"
+                      className="read-more-btn"
                       onClick={() =>
                         setExpandedReviews((prev) => ({
                           ...prev,

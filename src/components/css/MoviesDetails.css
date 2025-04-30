@@ -3,10 +3,40 @@
   flex-wrap: wrap;
   gap: 40px;
   align-items: center;
+  background: #f8f9fa;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 0;
+}
+
+.movie-detail  .movie-poster{
+  /* border-radius: 20px; */
+  position: relative;
+  margin-bottom: 0 !important;
 }
 
 .movie-detail > div:first-child {
   flex: 1 1 300px;
+}
+
+.movie-top{
+  display: flex;
+  align-items: center;
+  background-size: cover !important;
+  background-position: top center !important;
+  background-repeat: no-repeat;
+  color: white;
+  position: relative;
+  border-bottom: 3px solid #5DE5CA;
+}
+
+.movie-top::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(1, 17, 51, 0.7); 
 }
 
 .movie-data {
@@ -20,4 +50,59 @@
 .movie-data img {
   border-radius:0 !important;
   width: 100%;
+}
+
+.movie-data p, .movie-data h2, .movie-data .btn{
+  position: relative;
+}
+
+.cast-card{
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  text-decoration: none;
+}
+
+.cast-link{
+  text-decoration: none;
+  color: #000000;
+}
+
+.cast-card img{
+  border-top-left-radius: 6px !important;
+  border-top-right-radius: 6px !important;
+  border-bottom: 3px solid #5DE5CA;
+}
+
+.cast-card p{
+  padding: 6px;
+  margin-bottom: 0;
+}
+
+.cast-card p:nth-child(2){
+  font-weight: 700;
+}
+
+.reviews-section{
+  padding: 24px;
+}
+.review{
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid #5DE5CA;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.read-more-btn{
+  border: 0;
+  background-color: transparent;
+}
+
+.reviews-between{
+  height: 10px;
+  /* background: linear-gradient(0.25turn, #5DE5CA, #9BA2F8); */
+  background: #5DE5CA;
+  margin-bottom: 50px;
 }
