@@ -25,7 +25,7 @@ const MovieDetails = () => {
         const castResponse = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}&language=en-US`
         );
-        setCast(castResponse.data.cast.slice(0, 8)); // Get the first 3 cast members
+        setCast(castResponse.data.cast.slice(0, 8)); 
 
         // Fetch the trailer
         const trailerResponse = await axios.get(
@@ -54,7 +54,7 @@ const MovieDetails = () => {
   if (!movie) return <div className="p-4">Loading...</div>;
 
   return (
-    <div className="movie-detail container">
+    <div className="movie-detail">
       <div 
          className="movie-top"
          style={{
@@ -66,7 +66,7 @@ const MovieDetails = () => {
           alt={movie.title}
           className="movie-poster img-fluid mb-3"
         />
-        <div className="movie-data">
+        <div className="movie-data container">
           <h2>{movie.title}</h2>
           <p><strong>Release Date:</strong> {movie.release_date}</p>
           <p><strong>Overview:</strong> {movie.overview}</p>
@@ -83,10 +83,10 @@ const MovieDetails = () => {
         </div>
 
       {/* Reviews Section */}
-     <div className="reviews-section">
+     <div>
       {/* Cast Section */}
        <div className="cast-list">
-        <h2>Cast</h2>
+        <h2 className="">Cast</h2>
         <div className="d-flex gap-3">
           {cast.map((actor) => (
             <Link
@@ -108,8 +108,8 @@ const MovieDetails = () => {
         </div>
       </div>
       <hr></hr>
+      <div className="reviews-section">
       <h2>Reviews</h2>
-      {/* <div className="reviews-between mt-4"></div> */}
       {reviews.length > 0 ? (
             reviews.map((review) => (
               review.content && (
@@ -140,6 +140,7 @@ const MovieDetails = () => {
             <p>No reviews available.</p>
           )}
         </div>
+      </div>
     </div>
   );
 };

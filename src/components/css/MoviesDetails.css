@@ -3,13 +3,13 @@
   flex-wrap: wrap;
   gap: 40px;
   align-items: center;
+  justify-content: center;
   background: #f8f9fa;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   padding: 0;
 }
 
 .movie-detail  .movie-poster{
-  /* border-radius: 20px; */
   position: relative;
   margin-bottom: 0 !important;
 }
@@ -41,10 +41,9 @@
 
 .movie-data {
   flex: 2 1 500px;
-  /* background-color: #f8f9fa; */
+  max-width: 1000px;
   padding: 20px;
   border-radius: 20px;
-  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
 }
 
 .movie-data img {
@@ -54,6 +53,11 @@
 
 .movie-data p, .movie-data h2, .movie-data .btn{
   position: relative;
+}
+
+
+.cast-list .d-flex{
+  justify-content: center;
 }
 
 .cast-card{

@@ -28,10 +28,10 @@ const PersonDetails = () => {
     fetchPersonDetails();
   }, [id]);
 
-  if (!person) return <div className="text-white">Loading...</div>;
+  if (!person) return <div className="">Loading...</div>;
 
   return (
-    <div className="container py-4 text-white">
+    <div className="container py-4">
       <div className="row">
         <div className="col-md-4 mb-4">
           <img
