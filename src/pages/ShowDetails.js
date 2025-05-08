@@ -81,7 +81,7 @@ const ShowDetails = () => {
       <div>
       {/* Cast Section */}
       <div className="cast-list">
-        <h2>Cast</h2>
+        <h2 className="container">Cast</h2>
         <div className="d-flex gap-3">
           {cast.map((actor) => (
             <Link to={`/people/${actor.id}`} key={actor.id} className="cast-link">

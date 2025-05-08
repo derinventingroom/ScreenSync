@@ -1,0 +1,21 @@
+.search-card{
+    color: #212529 !important;
+    background: #f8f9fa !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 0 !important;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+.search-card img{
+    border-bottom: 5px solid #5DE5CA;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    height: 400px; 
+    object-fit: cover;
+}
+
+.search-card .card-body{
+    padding: 8px;
+}

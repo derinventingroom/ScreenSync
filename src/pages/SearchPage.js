@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
+import "../components/css/SearchPage.css"; 
 
 const SearchResults = () => {
   const location = useLocation();
@@ -54,7 +55,7 @@ const SearchResults = () => {
           return (
             <div className="col-md-3 mb-4" key={item.id}>
               <Link to={link} className="text-decoration-none">
-                <div className="card h-100">
+                <div className="search-card h-100">
                   {image && (
                     <img
                       src={`https://image.tmdb.org/t/p/w300${image}`}

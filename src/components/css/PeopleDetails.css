@@ -1,4 +1,19 @@
+.swiper-wrapper{
+    margin-bottom: 40px;
+}
+
+.swiper-pagination-bullet-active{
+    opacity: var(--swiper-pagination-bullet-opacity, 1);
+    background: #5DE5CA !important;
+}
+
+.swiper-button-prev, .swiper-button-next{
+    color: #5DE5CA !important;
+}
+
 .credits-card{
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
     color: #212529 !important;
     background: #f8f9fa !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -6,6 +21,9 @@
 }
 
 .credits-card img{
+    height: 300px; 
+    object-fit: cover;
+    width: 100%;
     border-bottom: 5px solid #5DE5CA;
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;

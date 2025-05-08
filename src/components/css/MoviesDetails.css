@@ -60,6 +60,10 @@
   justify-content: center;
 }
 
+.movie-detail .cast-list h2{
+  max-width: 2000px !important;
+}
+
 .cast-card{
   background-color: #f8f9fa;
   border-radius: 6px;
