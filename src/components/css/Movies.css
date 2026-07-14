@@ -23,3 +23,19 @@
     font-size: 18px;
     font-weight: 700;
 }
+
+@media screen and (max-width: 510px) {
+    .btn-group{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .btn-group .btn:nth-child(1){
+        border-top-right-radius: 21px !important;
+        border-bottom-left-radius: 0 !important;
+    }
+        .btn-group .btn:nth-child(3){
+        border-top-right-radius: 21px !important;
+        border-bottom-left-radius: 0 !important;
+    }
+}
