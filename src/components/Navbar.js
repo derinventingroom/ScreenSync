@@ -5,7 +5,7 @@ import "./css/Navbar.css";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+    <nav className="navbar navbar-expand-xl navbar-dark bg-dark px-3">
       {/* Logo */}
       <Link className="navbar-brand" to="/">
         ScreenSync
@@ -26,7 +26,7 @@ const Navbar = () => {
 
       {/* Navbar Content */}
       <div className="collapse navbar-collapse" id="navbarNav">
-        <div className="d-flex w-100 align-items-center">
+        <div className="d-flex w-100 align-items-center for-mobile">
           {/* Center SearchBar with flex-grow */}
           <div className="search-bar flex-grow-1 mx-3">
             <SearchBar />

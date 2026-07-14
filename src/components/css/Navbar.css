@@ -29,3 +29,12 @@
 .search-bar{
     margin-bottom: 1.2rem;
 }
+
+@media screen and (max-width: 1024px) {
+    .for-mobile{
+        flex-direction: column;
+    }
+    .for-mobile .navbar-nav{
+        margin-left: -300px !important;
+    }
+}
