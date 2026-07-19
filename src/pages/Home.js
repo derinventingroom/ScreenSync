@@ -15,7 +15,9 @@ const Home = () => {
       <FeaturedTrailer />
       <BetweenGradient />
       <PopularMovies />
+      <BetweenGradient />
       <PopularShows />
+      <BetweenGradient />
       <PopularPeople />
       {/* <Footer /> */}
     </div>

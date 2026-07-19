@@ -1,5 +1,4 @@
-.btn{
-  background-color: #00CEC9;
+.btn, .btn-trailer, .btn-clear{
   color: #fff;
   font-weight: 700;
   border-radius: 21px;
@@ -7,9 +6,29 @@
   padding: 15px 45px;
 }
 
+.btn, .btn-trailer{
+  background-color: #00CEC9;
+}
+
 .btn:hover{
   background-color: #1fa29f;
   color: #fff;
+}
+
+.btn-clear{
+  background-color: transparent;
+  text-decoration: none;
+  border: 2px solid #fff !important;
+}
+
+.btn-clear:hover{
+  background-color: #ffffff;
+  color:#011133;
+}
+
+.hero-buttons{
+  display: flex;
+  gap: 20px;
 }
 
 .hero {
@@ -48,17 +67,40 @@
   
   .hero-content {
     position: relative;
-    max-width: 50%;
+    /* max-width: 50%; */
     z-index: 2;
   }
-  
+
+/*   
   .hero h1 {
     font-size: 3rem;
     margin-bottom: 20px;
+  } */
+
+  .hero-movie-logo{
+    padding-bottom: 20px;
+  }
+
+  .hero-meta{
+    padding-bottom: 10px;
+    display: flex;
+    font-size: 22px;
+    gap: 10px;
+  }
+
+.hero-meta .fa-star {
+  color: #f5c518;
+}
+
+  .rating{
+    /* font-weight: 700; */
+    /* border: 1px solid #ffffff;
+    padding: 5px; */
   }
   
   .hero p {
     font-size: 1.2rem;
+    max-width: 50%;
     margin-bottom: 20px;
   }
   

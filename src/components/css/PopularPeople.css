@@ -1,12 +1,8 @@
 .popular-people {
     background-color: #ffffff;
-    margin: 100px 0;
+    /* margin: 100px 0; */
     min-height: 40vh;
     padding: 40px 0;
-}
-
-.popular-people .col-lg-3{
-    margin-top: 100px;
 }
 
 .section-title {
@@ -79,3 +75,12 @@
     color: #e0e0e0;
 }
 
+@media screen and (max-width: 991px) {
+    .popular-people{
+        padding-bottom: 100px;
+        margin: 0;
+    }
+    .popular-people .col-lg-3:not(:first-child){
+        margin-top: 150px;
+    }
+}
