@@ -35,7 +35,7 @@
   position: relative;
   height: 80vh;
   background-size: cover !important;
-  background-position: top center !important;
+  background-position: top center;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
@@ -109,5 +109,20 @@
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 991px) {
+    .hero{
+      background-position: right center;
+    }
+    .hero-movie-logo{
+      width: 300px;
+    }
+    .hero-meta{
+      font-size: 16px;
+    }
+    .hero p{
+      max-width: 100%;
+    }
   }
   
