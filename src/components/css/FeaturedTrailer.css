@@ -1,76 +1,311 @@
 .featured-trailers {
-  background-color: #011133;
-  padding: 2rem 0;
-}
-
-.trailer-item {
-  background-color: #011133;
-  padding: 1rem;
-  border-radius: 10px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.featured-trailers .section-title{
-  color: #fff
-}
-
-.featured-trailer-item img{
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.featured-trailer-item .block-description p{
-  color:#ffffff;
-  padding: 0 0 10px 10px;
-}
-
-.trailer-title {
-  font-weight: bold;
-  margin-top: 0.5rem;
-}
-
-.view-more-link {
-  margin-top: 0.5rem;
-  color: #5DE5CA;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.play-icon-wrapper {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-  font-size: 2.5rem;
-  color: white;
-  padding: 15px;
-  border-radius: 50%;
-  transition: background 0.3s;
-}
-
-.play-icon-wrapper:hover {
-  font-size: 3rem;
-}
-
-.trailer-item-background {
   position: relative;
+  overflow: hidden;
+  padding: 72px 0 82px;
+  background:
+    radial-gradient(
+      circle at 82% 18%,
+      rgba(93, 229, 202, 0.1),
+      transparent 29%
+    ),
+    radial-gradient(
+      circle at 12% 85%,
+      rgba(121, 137, 255, 0.1),
+      transparent 27%
+    ),
+    #011133;
+  color: #ffffff;
 }
 
-.trailer-item-wrapper {
-  background-color: #5CE8C9;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-top-right-radius: 11px;
-  border-top-left-radius: 11px;
+.featured-trailers-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 34px;
+}
+
+.featured-trailers-eyebrow {
+  margin: 0 0 7px;
+  color: #5de5ca;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.featured-trailers-heading h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.featured-trailers-description {
+  max-width: 440px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+/* ========================================
+   Trailer grid
+======================================== */
+
+.featured-trailers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px 18px;
+}
+
+.featured-trailer-card {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.featured-trailer-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(93, 229, 202, 0.38);
+  box-shadow: 0 22px 42px rgba(0, 0, 0, 0.32);
+}
+
+.featured-trailer-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #020b1f;
+}
+
+.featured-trailer-media img,
+.featured-trailer-media iframe {
+  display: block;
+  width: 100%;
   height: 100%;
+  border: 0;
 }
 
-.trailer-item-wrapper img{
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+.featured-trailer-media img {
+  object-fit: cover;
+  transition: transform 0.4s ease;
 }
 
+.featured-trailer-card:hover
+  .featured-trailer-media img {
+  transform: scale(1.06);
+}
 
+.featured-trailer-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      0deg,
+      rgba(1, 17, 51, 0.66),
+      rgba(1, 17, 51, 0.04) 65%
+    ),
+    rgba(1, 17, 51, 0.1);
+  transition: background-color 0.25s ease;
+}
+
+.featured-trailer-card:hover
+  .featured-trailer-overlay {
+  background-color: rgba(1, 17, 51, 0.12);
+}
+
+/* ========================================
+   Main play button
+======================================== */
+
+.featured-trailer-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  background: rgba(1, 17, 51, 0.72);
+  color: #ffffff;
+  font-size: 1rem;
+  transform: translate(-50%, -50%);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.featured-trailer-play:hover {
+  border-color: #5de5ca;
+  background: #08c6c8;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.featured-trailer-play .fa-play {
+  margin-left: 3px;
+}
+
+/* ========================================
+   Card information
+======================================== */
+
+.featured-trailer-info {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 15px;
+}
+
+.featured-trailer-info h3 {
+  display: -webkit-box;
+  margin: 0 0 5px;
+  overflow: hidden;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.featured-trailer-info p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.72rem;
+}
+
+.featured-trailer-small-play {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(93, 229, 202, 0.35);
+  border-radius: 50%;
+  background: transparent;
+  color: #5de5ca;
+  font-size: 0.7rem;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.featured-trailer-small-play:hover {
+  background: #5de5ca;
+  color: #011133;
+  transform: scale(1.07);
+}
+
+.featured-trailer-small-play .fa-play {
+  margin-left: 2px;
+}
+
+/* ========================================
+   Loading and empty states
+======================================== */
+
+.featured-trailers-loading,
+.featured-trailers-empty {
+  min-height: 250px;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ========================================
+   Tablet
+======================================== */
+
+@media (max-width: 1199.98px) {
+  .featured-trailers-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 991.98px) {
+  .featured-trailers {
+    padding: 60px 0 68px;
+  }
+
+  .featured-trailers-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .featured-trailers-description {
+    max-width: 600px;
+  }
+}
+
+/* ========================================
+   Mobile
+======================================== */
+
+@media (max-width: 767.98px) {
+  .featured-trailers {
+    padding: 48px 0 56px;
+  }
+
+  .featured-trailers-heading {
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .featured-trailers-description {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .featured-trailers-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 12px;
+  }
+
+  .featured-trailer-info {
+    min-height: 74px;
+    padding: 12px;
+  }
+
+  .featured-trailer-info h3 {
+    font-size: 0.84rem;
+  }
+
+  .featured-trailer-play {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* ========================================
+   Small phones
+======================================== */
+
+@media (max-width: 575.98px) {
+  .featured-trailers-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .featured-trailer-info h3 {
+    font-size: 0.92rem;
+  }
+}

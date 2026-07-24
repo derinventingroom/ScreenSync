@@ -1,48 +1,64 @@
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../components/css/MoviesDetails.css";
 
+const API_KEY = "7ff29f44e328a4c9a0fd467d2c5afffa";
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
+
 const MovieDetails = () => {
-  const { id } = useParams(); // get movie ID from the URL
+  const { id } = useParams();
+
   const [movie, setMovie] = useState(null);
-  const [cast, setCast] = useState([]); // Store the cast here
-  const [trailer, setTrailer] = useState(""); // Store the trailer URL here
+  const [cast, setCast] = useState([]);
+  const [trailer, setTrailer] = useState("");
   const [reviews, setReviews] = useState([]);
   const [expandedReviews, setExpandedReviews] = useState({});
-  const apiKey = "7ff29f44e328a4c9a0fd467d2c5afffa";
 
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const movieResponse = await axios.get(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`
-        );
+        const [
+          movieResponse,
+          castResponse,
+          trailerResponse,
+          reviewsResponse,
+        ] = await Promise.all([
+          axios.get(
+            `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
+          ),
+          axios.get(
+            `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}&language=en-US`
+          ),
+          axios.get(
+            `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`
+          ),
+          axios.get(
+            `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${API_KEY}&language=en-US&page=1`
+          ),
+        ]);
+
         setMovie(movieResponse.data);
-
-        // Fetch cast members
-        const castResponse = await axios.get(
-          `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}&language=en-US`
-        );
-        setCast(castResponse.data.cast.slice(0, 8)); 
-
-        // Fetch the trailer
-        const trailerResponse = await axios.get(
-          `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}&language=en-US`
-        );
-        const trailerData = trailerResponse.data.results.find(
-          (video) => video.type === "Trailer"
-        );
-        if (trailerData) {
-          setTrailer(`https://www.youtube.com/watch?v=${trailerData.key}`);
-        }
-
-        const reviewsResponse = await axios.get(
-          `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${apiKey}&language=en-US&page=1`
-        );
+        setCast(castResponse.data.cast.slice(0, 10));
         setReviews(reviewsResponse.data.results.slice(0, 3));
 
+        const trailerData =
+          trailerResponse.data.results.find(
+            (video) =>
+              video.site === "YouTube" &&
+              video.type === "Trailer" &&
+              video.official
+          ) ||
+          trailerResponse.data.results.find(
+            (video) =>
+              video.site === "YouTube" && video.type === "Trailer"
+          );
+
+        if (trailerData) {
+          setTrailer(
+            `https://www.youtube.com/watch?v=${trailerData.key}`
+          );
+        }
       } catch (error) {
         console.error("Error fetching movie details:", error);
       }
@@ -51,97 +67,206 @@ const MovieDetails = () => {
     fetchMovie();
   }, [id]);
 
-  if (!movie) return <div className="p-4">Loading...</div>;
+  if (!movie) {
+    return <div className="movie-loading">Loading...</div>;
+  }
+
+  const releaseYear = movie.release_date
+    ? new Date(`${movie.release_date}T00:00:00`).getFullYear()
+    : "";
+
+  const formattedReleaseDate = movie.release_date
+    ? new Date(`${movie.release_date}T00:00:00`).toLocaleDateString(
+        "en-US",
+        {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }
+      )
+    : "Release date unavailable";
+
+  const runtime = movie.runtime
+    ? `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m`
+    : "";
+
+  const genres = movie.genres
+    ?.map((genre) => genre.name)
+    .join(" • ");
 
   return (
-    <div className="movie-detail">
-      <div 
-         className="movie-top"
-         style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+    <main className="movie-detail">
+      <section
+        className="movie-hero"
+        style={{
+          backgroundImage: movie.backdrop_path
+            ? `url(${IMAGE_BASE_URL}/original${movie.backdrop_path})`
+            : "none",
         }}
-         >
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-          className="movie-poster img-fluid mb-3"
-        />
-        <div className="movie-data container">
-          <h2>{movie.title}</h2>
-          <p><strong>Release Date:</strong> {movie.release_date}</p>
-          <p><strong>Overview:</strong> {movie.overview}</p>
-          <p><strong>Rating:</strong> {movie.vote_average} / 10</p>
-          {/* Trailer Section */}
-          {trailer && (
-          <div className="mt-4">
-            <a href={trailer} target="_blank" rel="noopener noreferrer">
-            <button className="btn">Watch Trailer</button>
-            </a>
-          </div>
-          )}
-          </div>
-        </div>
+      >
+        <div className="movie-hero-overlay"></div>
 
-      {/* Reviews Section */}
-     <div>
-      {/* Cast Section */}
-       <div className="cast-list">
-        <h2 className="container">Cast</h2>
-        <div className="d-flex gap-3">
-          {cast.map((actor) => (
-            <Link
-              to={`/people/${actor.id}`}
-              key={actor.id}
-              className="cast-link"
-            >
-            <div className="cast-card">
+        <div className="container movie-hero-container">
+          <div className="movie-hero-grid">
+            <div className="movie-poster-wrapper">
               <img
-                src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
-                alt={actor.name}
-                className="img-fluid"
+                src={
+                  movie.poster_path
+                    ? `${IMAGE_BASE_URL}/w500${movie.poster_path}`
+                    : "https://via.placeholder.com/500x750?text=No+Image"
+                }
+                alt={movie.title}
+                className="movie-poster"
               />
-              <p>{actor.name}</p>
-              <p className="text-muted">{actor.character}</p>
-             </div>
-            </Link>
-          ))}
+            </div>
+
+            <div className="movie-data">
+              <p className="movie-eyebrow">Featured Movie</p>
+
+              <h1>
+                {movie.title}
+                {releaseYear && (
+                  <span className="movie-year"> ({releaseYear})</span>
+                )}
+              </h1>
+
+              <div className="movie-meta">
+                <span className="movie-score">
+                  <i className="fa-solid fa-star"></i>
+                  {movie.vote_average?.toFixed(1)}
+                </span>
+
+                {runtime && <span>{runtime}</span>}
+
+                {genres && <span>{genres}</span>}
+              </div>
+
+              {movie.tagline && (
+                <p className="movie-tagline">{movie.tagline}</p>
+              )}
+
+              <div className="movie-overview">
+                <h2>Overview</h2>
+                <p>{movie.overview || "No overview is available."}</p>
+              </div>
+
+              <p className="movie-release-date">
+                <strong>Release Date:</strong> {formattedReleaseDate}
+              </p>
+
+              {trailer && (
+                <a
+                  href={trailer}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn movie-trailer-button"
+                >
+                  <i className="fa-solid fa-play"></i>
+                  Watch Trailer
+                </a>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-      <hr></hr>
-      <div className="reviews-section">
-      <h2>Reviews</h2>
-      {reviews.length > 0 ? (
-            reviews.map((review) => (
-              review.content && (
-                <div key={review.id} className="review mb-3">
-                  <p><strong>{review.author}</strong></p>
-                  <p>
-                    {expandedReviews[review.id]
-                      ? review.content
-                      : `${review.content.substring(0, 300)}...`}
-                  </p>
-                  {review.content.length > 300 && (
-                    <button
-                      className="read-more-btn"
-                      onClick={() =>
-                        setExpandedReviews((prev) => ({
-                          ...prev,
-                          [review.id]: !prev[review.id],
-                        }))
-                      }
-                    >
-                      {expandedReviews[review.id] ? "Show Less" : "Read More"}
-                    </button>
-                  )}
-                </div>
+      </section>
+
+      <section className="cast-section">
+        <div className="container">
+          <div className="section-heading">
+            <p className="section-eyebrow">Meet the Characters</p>
+            <h2>Cast</h2>
+          </div>
+
+          <div className="cast-scroll">
+            {cast.map((actor) => (
+              <Link
+                to={`/people/${actor.id}`}
+                key={actor.id}
+                className="cast-link"
+              >
+                <article className="cast-card">
+                  <img
+                    src={
+                      actor.profile_path
+                        ? `${IMAGE_BASE_URL}/w300${actor.profile_path}`
+                        : "https://via.placeholder.com/300x450?text=No+Image"
+                    }
+                    alt={actor.name}
+                  />
+
+                  <div className="cast-card-content">
+                    <h3>{actor.name}</h3>
+                    <p>{actor.character || "Character unavailable"}</p>
+                  </div>
+                </article>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="reviews-section">
+        <div className="container">
+          <div className="section-heading">
+            <p className="section-eyebrow">Audience Response</p>
+            <h2>Reviews</h2>
+          </div>
+
+          <div className="reviews-list">
+            {reviews.length > 0 ? (
+              reviews.map(
+                (review) =>
+                  review.content && (
+                    <article key={review.id} className="review">
+                      <div className="review-header">
+                        <div className="review-avatar">
+                          {review.author
+                            ?.charAt(0)
+                            .toUpperCase()}
+                        </div>
+
+                        <div>
+                          <h3>{review.author}</h3>
+                          <p>TMDB review</p>
+                        </div>
+                      </div>
+
+                      <p className="review-content">
+                        {expandedReviews[review.id] ||
+                        review.content.length <= 300
+                          ? review.content
+                          : `${review.content.substring(0, 300)}...`}
+                      </p>
+
+                      {review.content.length > 300 && (
+                        <button
+                          type="button"
+                          className="read-more-btn"
+                          onClick={() =>
+                            setExpandedReviews((previous) => ({
+                              ...previous,
+                              [review.id]:
+                                !previous[review.id],
+                            }))
+                          }
+                        >
+                          {expandedReviews[review.id]
+                            ? "Show Less"
+                            : "Read More"}
+                        </button>
+                      )}
+                    </article>
+                  )
               )
-            ))
-          ) : (
-            <p>No reviews available.</p>
-          )}
+            ) : (
+              <p className="no-reviews">
+                No reviews are currently available.
+              </p>
+            )}
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 

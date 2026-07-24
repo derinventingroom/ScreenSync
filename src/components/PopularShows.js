@@ -1,61 +1,145 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./css/PopularShows.css";
 
+const API_KEY = "7ff29f44e328a4c9a0fd467d2c5afffa";
+const BASE_URL = "https://api.themoviedb.org/3";
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
+
 const PopularShows = () => {
-    const [shows, setShows] = useState([]);
-    const apiKey = "7ff29f44e328a4c9a0fd467d2c5afffa";
-    const baseURL = "https://api.themoviedb.org/3";
-    const imageBaseURL = "https://image.tmdb.org/t/p/w500";
+  const [shows, setShows] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchPoularShows = async () => {
-            try{
-                const response = await axios.get(
-                    `${baseURL}/tv/popular?api_key=${apiKey}&language=en-US&page=1`
-                );
-                setShows(
-                    response.data.results.filter((show) => show.poster_path)
-                    .slice(0, 4)
-                );
-            } catch (error) {
-                console.error("Error fethcing popular movies:");
-            }
-        };
-        fetchPoularShows();
-    }, []); 
+  useEffect(() => {
+    const fetchPopularShows = async () => {
+      try {
+        setLoading(true);
 
+        const response = await axios.get(
+          `${BASE_URL}/tv/popular`,
+          {
+            params: {
+              api_key: API_KEY,
+              language: "en-US",
+              region: "US",
+              page: 1,
+            },
+          }
+        );
 
-return(
-    <div className="popular-shows">
-        <div className="container">
-        <h2 className="section-title">Popular TV Shows</h2>
-        <div className="d-flex justify-content-around flex-wrap">
+        const filteredShows = response.data.results
+          .filter(
+            (show) =>
+              show.poster_path &&
+              show.original_language === "en"
+          )
+          .slice(0, 4);
+
+        setShows(filteredShows);
+      } catch (error) {
+        console.error(
+          "Error fetching popular TV shows:",
+          error
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPopularShows();
+  }, []);
+
+  const formatAirDate = (date) => {
+    if (!date) {
+      return "Air date unavailable";
+    }
+
+    return new Date(`${date}T00:00:00`).toLocaleDateString(
+      "en-US",
+      {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      }
+    );
+  };
+
+  return (
+    <section className="home-popular-shows">
+      <div className="container">
+        <div className="home-shows-heading">
+          <div>
+            <p className="home-shows-eyebrow">
+              Binge-Worthy Picks
+            </p>
+
+            <h2>Popular TV Shows</h2>
+          </div>
+
+          <Link
+            to="/shows"
+            className="home-shows-view-all"
+          >
+            View All Shows
+            <i className="fa-solid fa-arrow-right"></i>
+          </Link>
+        </div>
+
+        {loading ? (
+          <div className="popular-shows-loading">
+            Loading popular TV shows...
+          </div>
+        ) : shows.length > 0 ? (
+          <div className="popular-shows-grid">
             {shows.map((show) => (
-                <div className="col-lg-3" key={show.id}>
-                <Link to={`/shows/${show.id}`} className="tv-link">
-                <div className="popular-show-item">
-                  <div className="show-item-background">
+              <Link
+                to={`/shows/${show.id}`}
+                className="popular-show-link"
+                key={show.id}
+              >
+                <article className="popular-show-card">
+                  <div className="popular-show-poster-wrapper">
                     <img
-                    src={`${imageBaseURL}${show.poster_path}`}
-                    className="img-fluid"
-                    alt={show.name}
+                      src={`${IMAGE_BASE_URL}/w500${show.poster_path}`}
+                      alt={show.name}
+                      className="popular-show-poster"
                     />
-                    <div className="block-description">
-                        <p>{show.name}</p>
-                        <p>{show.first_air_date}</p>
+
+                    {show.vote_average > 0 && (
+                      <div className="popular-show-rating">
+                        <i className="fa-solid fa-star"></i>
+                        {show.vote_average.toFixed(1)}
+                      </div>
+                    )}
+
+                    <div className="popular-show-hover-overlay">
+                      <span>
+                        View Details
+                        <i className="fa-solid fa-arrow-right"></i>
+                      </span>
                     </div>
                   </div>
-                </div>
-               </Link>
-             </div>
-            ))}
-        </div>
-        </div>
-    </div>
-);
 
-}
+                  <div className="popular-show-info">
+                    <h3>{show.name}</h3>
+
+                    <p>
+                      {formatAirDate(show.first_air_date)}
+                    </p>
+                  </div>
+                </article>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p className="popular-shows-empty">
+            No popular TV shows are currently available.
+          </p>
+        )}
+      </div>
+    </section>
+  );
+};
 
 export default PopularShows;

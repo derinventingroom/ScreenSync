@@ -1,34 +1,458 @@
-.swiper-wrapper{
-    margin-bottom: 40px;
+.person-detail {
+  background-color: #ffffff;
+  color: #101828;
 }
 
-.swiper-pagination-bullet-active{
-    opacity: var(--swiper-pagination-bullet-opacity, 1);
-    background: #5DE5CA !important;
+.person-loading {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  font-size: 1.25rem;
 }
 
-.swiper-button-prev, .swiper-button-next{
-    color: #5DE5CA !important;
+/* ========================================
+   Profile hero
+======================================== */
+
+.person-hero {
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(93, 229, 202, 0.12),
+      transparent 35%
+    ),
+    #011133;
+  color: #ffffff;
+  padding: 70px 0;
 }
 
-.credits-card{
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-    color: #212529 !important;
-    background: #f8f9fa !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 0 !important;
+.person-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  gap: 60px;
+  align-items: start;
 }
 
-.credits-card img{
-    height: 300px; 
-    object-fit: cover;
-    width: 100%;
-    border-bottom: 5px solid #5DE5CA;
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
+.person-image-column {
+  position: relative;
 }
 
-.credits-info{
-    padding: 8px;
+.person-image-column::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  bottom: -14px;
+  width: 100%;
+  height: 100%;
+  border: 3px solid #5de5ca;
+  border-radius: 14px;
+}
+
+.person-profile-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.person-information {
+  min-width: 0;
+}
+
+.person-department,
+.section-eyebrow {
+  margin: 0 0 8px;
+  color: #5de5ca;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.person-information h1 {
+  margin: 0 0 28px;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1;
+}
+
+.person-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.person-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 180px;
+  padding-right: 24px;
+}
+
+.person-fact-label {
+  color: #5de5ca;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.person-biography {
+  max-width: 900px;
+}
+
+.person-biography h2 {
+  margin-bottom: 14px;
+  font-size: 1.5rem;
+}
+
+.person-biography p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.biography-toggle {
+  margin-top: 18px;
+  padding: 0;
+  border: 0;
+  border-bottom: 2px solid #5de5ca;
+  background: transparent;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* ========================================
+   Shared section styling
+======================================== */
+
+.known-for-section,
+.filmography-section {
+  padding: 70px 0;
+}
+
+/* .section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+} */
+
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+/* ========================================
+   Known For carousel
+======================================== */
+
+.known-for-section {
+  background-color: #ffffff;
+}
+
+.known-for-swiper {
+  padding: 5px 5px 55px;
+}
+
+.known-for-swiper .swiper-wrapper {
+  margin-bottom: 0;
+}
+
+.credit-link {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.credits-card {
+  height: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  color: #212529;
+  box-shadow: 0 8px 22px rgba(1, 17, 51, 0.14);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.credits-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 16px 32px rgba(1, 17, 51, 0.2);
+}
+
+.credits-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  height: auto;
+  object-fit: cover;
+  border-bottom: 5px solid #5de5ca;
+  border-radius: 0;
+}
+
+.credits-info {
+  padding: 14px;
+}
+
+.credits-info h3 {
+  margin: 0 0 10px;
+  overflow: hidden;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.credit-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: #667085;
+  font-size: 0.8rem;
+}
+
+.known-for-swiper .swiper-pagination-bullet-active {
+  background: #5de5ca;
+}
+
+.known-for-swiper .swiper-button-prev,
+.known-for-swiper .swiper-button-next {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(1, 17, 51, 0.9);
+  color: #5de5ca;
+}
+
+.known-for-swiper .swiper-button-prev::after,
+.known-for-swiper .swiper-button-next::after {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+/* ========================================
+   Filmography
+======================================== */
+
+.filmography-section {
+  background-color: #011133;
+  color: #ffffff;
+}
+
+.filmography-heading h2 {
+  color: #ffffff;
+}
+
+.filmography-list {
+  overflow: hidden;
+  border: 1px solid rgba(93, 229, 202, 0.3);
+  border-radius: 12px;
+}
+
+.filmography-item {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr) 100px 20px;
+  gap: 20px;
+  align-items: center;
+  padding: 18px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.filmography-item:last-child {
+  border-bottom: 0;
+}
+
+.filmography-item:hover {
+  background-color: rgba(93, 229, 202, 0.1);
+}
+
+.filmography-year {
+  color: #5de5ca;
+  font-weight: 800;
+}
+
+.filmography-title {
+  min-width: 0;
+}
+
+.filmography-title h3 {
+  margin: 0;
+  overflow: hidden;
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.filmography-title p {
+  margin: 5px 0 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.85rem;
+}
+
+.filmography-type {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+.filmography-item .fa-chevron-right {
+  color: #5de5ca;
+}
+
+/* ========================================
+   Tablet
+======================================== */
+
+@media (max-width: 991.98px) {
+  .person-hero {
+    padding: 55px 0;
+  }
+
+  .person-hero-grid {
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .person-information h1 {
+    font-size: 3rem;
+  }
+
+  .person-biography p {
+    line-height: 1.7;
+  }
+}
+
+/* ========================================
+   Mobile
+======================================== */
+
+@media (max-width: 767.98px) {
+  .person-hero {
+    padding: 45px 0;
+  }
+
+  .person-hero-grid {
+    display: block;
+  }
+
+  .person-image-column {
+    width: min(260px, 75vw);
+    margin: 0 auto 45px;
+  }
+
+  .person-information {
+    text-align: center;
+  }
+
+  .person-information h1 {
+    margin-bottom: 22px;
+    font-size: clamp(2.4rem, 12vw, 3.5rem);
+  }
+
+  .person-facts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .person-fact {
+    padding: 0;
+  }
+
+  .person-biography {
+    text-align: left;
+  }
+
+  .person-biography h2 {
+    text-align: center;
+  }
+
+  .biography-toggle {
+    display: block;
+    margin: 18px auto 0;
+  }
+
+  .known-for-section,
+  .filmography-section {
+    padding: 50px 0;
+  }
+
+  .known-for-swiper {
+    /*
+     * Extra horizontal room prevents the first and last slides
+     * from appearing clipped on smaller screens.
+     */
+    margin-left: -4px;
+    margin-right: -4px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .known-for-swiper .swiper-button-prev,
+  .known-for-swiper .swiper-button-next {
+    display: none;
+  }
+
+  .filmography-item {
+    grid-template-columns: 55px minmax(0, 1fr) 16px;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .filmography-type {
+    display: none;
+  }
+}
+
+/* ========================================
+   Small phones
+======================================== */
+
+@media (max-width: 575.98px) {
+  .person-hero {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .person-image-column {
+    width: min(220px, 68vw);
+  }
+
+  .person-biography p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .credits-info {
+    padding: 11px;
+  }
+
+  .credits-info h3 {
+    font-size: 0.9rem;
+  }
+
+  .credit-meta {
+    font-size: 0.75rem;
+  }
+
+  .filmography-year {
+    font-size: 0.85rem;
+  }
+
+  .filmography-title h3 {
+    font-size: 0.9rem;
+  }
 }

@@ -1,76 +1,303 @@
-.popular-movies{
-    background-color: #ffffff;
-    /* margin: 100px 0; */
-    min-height: 40vh;
-    padding: 40px 0;
+.home-popular-movies {
+  padding: 72px 0 82px;
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(93, 229, 202, 0.08),
+      transparent 26%
+    ),
+    #f7f9fc;
+  color: #101828;
 }
 
-.section-title {
-    color: #5CE8C9;
-    font-size: 36px;
-    font-weight: bold;
-    text-align: left;
-    margin-bottom: 60px;
+/* ========================================
+   Shared section heading
+======================================== */
+
+.home-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 34px;
+}
+
+.home-section-eyebrow {
+  margin: 0 0 7px;
+  color: #08aeb0;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.home-section-heading h2 {
+  margin: 0;
+  color: #101828;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.home-section-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  color: #08aeb0;
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    gap 0.2s ease;
+}
+
+.home-section-view-all:hover {
+  gap: 13px;
+  border-color: #5de5ca;
+  color: #011133;
+}
+
+/* ========================================
+   Movie grid
+======================================== */
+
+.popular-movies-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px 20px;
+}
+
+.popular-movie-link {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.popular-movie-card {
+  height: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(1, 17, 51, 0.12);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.popular-movie-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 42px rgba(1, 17, 51, 0.18);
+}
+
+.popular-movie-poster-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid #5de5ca;
+  background: #011133;
+}
+
+.popular-movie-poster {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.popular-movie-card:hover
+  .popular-movie-poster {
+  transform: scale(1.05);
+}
+
+/* ========================================
+   Rating
+======================================== */
+
+.popular-movie-rating {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: rgba(1, 17, 51, 0.88);
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 800;
+  backdrop-filter: blur(6px);
+}
+
+.popular-movie-rating .fa-star {
+  color: #f6c344;
+}
+
+/* ========================================
+   Hover overlay
+======================================== */
+
+.popular-movie-hover-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 22px;
+  background:
+    linear-gradient(
+      0deg,
+      rgba(1, 17, 51, 0.92),
+      transparent 55%
+    );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.popular-movie-hover-overlay span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  transform: translateY(12px);
+  transition: transform 0.25s ease;
+}
+
+.popular-movie-card:hover
+  .popular-movie-hover-overlay {
+  opacity: 1;
+}
+
+.popular-movie-card:hover
+  .popular-movie-hover-overlay span {
+  transform: translateY(0);
+}
+
+/* ========================================
+   Movie information
+======================================== */
+
+.popular-movie-info {
+  min-height: 102px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px;
+}
+
+.popular-movie-info h3 {
+  display: -webkit-box;
+  margin: 0 0 10px;
+  overflow: hidden;
+  color: #101828;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.popular-movie-info p {
+  margin: 0;
+  color: #667085;
+  font-size: 0.78rem;
+}
+
+/* ========================================
+   Loading and empty states
+======================================== */
+
+.popular-movies-loading,
+.popular-movies-empty {
+  min-height: 300px;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: #667085;
+}
+
+/* ========================================
+   Tablet
+======================================== */
+
+@media (max-width: 991.98px) {
+  .home-popular-movies {
+    padding: 60px 0 68px;
   }
 
-  .popular-movies .movie-link{
-    text-decoration: none !important;
-}
-  
-
-.popular-movie-item{
-    position: relative;
+  .popular-movies-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 18px;
+  }
 }
 
-.movie-item-background{
-    background: linear-gradient(#9BA2F8, #5DE5CA);
-    border-radius: 10%;
-    padding: 20px 15px 15px;
-    position: relative;
-    transition: transform 0.3s ease;
-    overflow: visible;
-}
+/* ========================================
+   Mobile
+======================================== */
 
-.movie-item-background img{
+@media (max-width: 767.98px) {
+  .home-popular-movies {
+    padding: 48px 0 56px;
+  }
+
+  .home-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .home-section-heading > div {
     width: 100%;
-    border-radius: 20px;
-    margin-top: -60px; 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .home-section-view-all {
+    align-self: center;
+  }
 }
 
-.movie-item-background:hover{
-    transform: translateY(-5px);
-}
+/* ========================================
+   Small phones
+======================================== */
 
-.popular-movies .col-lg-3{
-    padding: 15px;
-}
+@media (max-width: 575.98px) {
+  .popular-movies-grid {
+    gap: 16px 10px;
+  }
 
-.block-description p{
-    text-decoration: none;
-    text-align: left;
-    color: #fff;
-    margin: 0;
-}
+  .popular-movie-card {
+    border-radius: 10px;
+  }
 
-.block-description p:first-child{
-    font-weight: 700;
-    font-size: 15px;
-    margin-bottom: 5px;
-    margin-top: 10px;
-}
+  .popular-movie-info {
+    min-height: 92px;
+    padding: 10px;
+  }
 
-.block-description p:nth-child(2){
-    font-size: 14px;
-    color: #e0e0e0;
-}
+  .popular-movie-info h3 {
+    margin-bottom: 8px;
+    font-size: 0.84rem;
+  }
 
-@media screen and (max-width: 991px) {
-    .popular-movies{
-        margin: 30px 0;
-    }
-    .popular-movies .col-lg-3:not(:first-child){
-        margin-top: 50px;
-    }
-}
+  .popular-movie-info p {
+    font-size: 0.7rem;
+  }
 
+  .popular-movie-rating {
+    top: 8px;
+    right: 8px;
+    padding: 5px 7px;
+    font-size: 0.68rem;
+  }
+
+  .popular-movie-hover-overlay {
+    display: none;
+  }
+}

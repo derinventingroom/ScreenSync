@@ -1,67 +1,126 @@
 // src/pages/People.jsx
+
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import "../components/css/People.css"; 
+import { Link } from "react-router-dom";
+import "../components/css/People.css";
+
+const API_KEY = "7ff29f44e328a4c9a0fd467d2c5afffa";
+const BASE_URL = "https://api.themoviedb.org/3";
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
 const People = () => {
   const [people, setPeople] = useState([]);
-  const apiKey = "7ff29f44e328a4c9a0fd467d2c5afffa";
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPeople = async () => {
       try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/person/popular?api_key=${apiKey}`
-        );
-        setPeople(response.data.results);
+        setLoading(true);
+
+        let allResults = [];
+
+        for (let page = 1; page <= 3; page++) {
+          const response = await axios.get(
+            `${BASE_URL}/person/popular`,
+            {
+              params: {
+                api_key: API_KEY,
+                language: "en-US",
+                page,
+              },
+            }
+          );
+
+          allResults = [...allResults, ...response.data.results];
+        }
+
+        setPeople(allResults);
       } catch (error) {
         console.error("Error fetching people:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchPeople();
   }, []);
 
-  return (
-    <div className="people-page container py-4">
-      <h2 className="mb-4 text-white">Trending People</h2>
+  const getKnownForTitles = (person) => {
+    if (!person.known_for?.length) {
+      return "Credits unavailable";
+    }
 
-      <div className="row">
-        {people.map((person) => (
-          <div
-            className="col-6 col-md-4 col-lg-3 mb-4"
-            key={person.id}
-            onClick={() => navigate(`/people/${person.id}`)}
-            style={{ cursor: "pointer" }}
-          >
-            <div className="person-card bg-dark text-white rounded p-2 h-100 text-center">
-              <img
-                src={
-                  person.profile_path
-                    ? `https://image.tmdb.org/t/p/w500${person.profile_path}`
-                    : "https://via.placeholder.com/500x750?text=No+Image"
-                }
-                alt={person.name}
-                className="img-fluid rounded mb-2"
-              />
-     
-              <div className="person-info">
-                <div className="info-flex">
-                  <h5 className="person-name">{person.name}</h5>
-                </div>
-                {person.known_for_department && (
-                  <p className="person-department">
-                    {person.known_for_department}
-                  </p>
-                )}
-              </div>
+    return person.known_for
+      .slice(0, 2)
+      .map((credit) => credit.title || credit.name)
+      .filter(Boolean)
+      .join(" • ");
+  };
+
+  return (
+    <main className="people-page">
+      <section className="people-header">
+        <div className="container">
+          <p className="people-eyebrow">Discover the Talent</p>
+          <h1>Popular People</h1>
+          <p className="people-header-description">
+            Explore actors, directors, writers, and other popular
+            entertainment professionals.
+          </p>
+        </div>
+      </section>
+
+      <section className="people-grid-section">
+        <div className="container">
+          {loading ? (
+            <div className="people-loading">
+              Loading people...
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
+          ) : (
+            <div className="people-grid">
+              {people.map((person) => (
+                <Link
+                  to={`/people/${person.id}`}
+                  className="person-card-link"
+                  key={person.id}
+                >
+                  <article className="person-card">
+                    <div className="person-image-container">
+                      <img
+                        src={
+                          person.profile_path
+                            ? `${IMAGE_BASE_URL}/w500${person.profile_path}`
+                            : "https://via.placeholder.com/500x750?text=No+Image"
+                        }
+                        alt={person.name}
+                        className="person-image"
+                      />
+
+                      {person.known_for_department && (
+                        <div className="person-department-badge">
+                          {person.known_for_department}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="person-info">
+                      <h2 className="person-name">
+                        {person.name}
+                      </h2>
+
+                      <p className="person-known-for">
+                        {getKnownForTitles(person)}
+                      </p>
+                    </div>
+                  </article>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    </main>
   );
 };
 
