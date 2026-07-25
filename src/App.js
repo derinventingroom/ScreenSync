@@ -8,12 +8,14 @@ import Shows from "./pages/Shows";
 import ShowDetails from "./pages/ShowDetails";
 import People from "./pages/People";
 import PeopleDetails from "./pages/PeopleDetails";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <div className="page-container">
       <div className="content-wrap">
         <Router>
+          <ScrollToTop />
           <Layout>
             <Routes>
               <Route path="/" element={<Home />} />
