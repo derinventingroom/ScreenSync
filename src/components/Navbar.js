@@ -2,13 +2,18 @@ import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import "bootstrap/dist/css/bootstrap.min.css"; 
 import "./css/Navbar.css";
+import logo from "../assets/images/logo.png";
 
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-xl navbar-dark bg-dark px-3">
       {/* Logo */}
       <Link className="navbar-brand" to="/">
-        ScreenSync
+          <img
+              src={logo}
+              alt="ScreenSync"
+              className="navbar-logo"
+          />
       </Link>
 
       {/* Toggle Button for Mobile View */}

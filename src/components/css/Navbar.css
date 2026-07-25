@@ -3,6 +3,22 @@
     padding-top: 25px;
 }
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo {
+    height: 42px;
+    width: auto;
+    display: block;
+    transition: transform .25s ease;
+}
+
+.navbar-brand:hover .navbar-logo {
+    transform: scale(1.04);
+}
+
 .navbar input{
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
@@ -28,6 +44,14 @@
 
 .search-bar{
     margin-bottom: 1.2rem;
+}
+
+@media (max-width:768px){
+
+    .navbar-logo{
+        height:34px;
+    }
+
 }
 
 @media screen and (max-width: 1024px) {
