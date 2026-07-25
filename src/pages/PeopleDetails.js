@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "../components/css/PeopleDetails.css";
 
-const API_KEY = "7ff29f44e328a4c9a0fd467d2c5afffa";
+const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
 const PersonDetails = () => {

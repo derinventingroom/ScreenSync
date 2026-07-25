@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../components/css/MoviesDetails.css";
 
-const API_KEY = "7ff29f44e328a4c9a0fd467d2c5afffa";
+const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
 const MovieDetails = () => {
